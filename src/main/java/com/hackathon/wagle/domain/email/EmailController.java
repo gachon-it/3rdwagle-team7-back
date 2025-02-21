@@ -102,15 +102,15 @@ public class EmailController {
 
 	        helper.setSubject(subject);
 
-	        helper.setText(template, true);  // true를 설정하면 HTML 콘텐츠로 처리됨
+	        helper.setText(template, true);  
 
 	        // 이메일 전송
 	        mailSender.send(message);
 
-	        return "successPage";  // 성공 페이지로 리다이렉트
+	        return "redirect:https://www.naver.com";  // 성공 페이지로 리다이렉트
 	    } catch (Exception e) {
 	        e.printStackTrace();
-	        return "errorPage";  // 오류 발생 시 오류 페이지로 리다이렉트
+	        return "redirect:https://www.google.com";  // 오류 발생 시 오류 페이지로 리다이렉트
 	    }
 	}
 
