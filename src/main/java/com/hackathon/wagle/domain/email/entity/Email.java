@@ -43,6 +43,6 @@ public class Email {
 	
 	@Column(name="reason")
 	private String reason;
-	
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
 	
 }
