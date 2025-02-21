@@ -65,7 +65,7 @@ public class EmailController {
 			
 			mailSender.send(message);
 			// 성공시 리디렉션 페이지
-			return "redirect:https://www.naver.com";
+			return "redirect:https://www.gachon.ac.kr/kor/index.do";  // 성공 페이지로 리다이렉트
 		} catch (Exception e) {
 			e.printStackTrace();
 			return "이메일 전송 실패: " + e.getMessage();
@@ -105,10 +105,10 @@ public class EmailController {
 	        // 이메일 전송
 	        mailSender.send(message);
 
-	        return "redirect:https://www.naver.com";  // 성공 페이지로 리다이렉트
+	        return "redirect:https://www.gachon.ac.kr/kor/index.do";  // 성공 페이지로 리다이렉트
 	    } catch (Exception e) {
-	        e.printStackTrace();
-	        return "redirect:https://www.google.com";  // 오류 발생 시 오류 페이지로 리다이렉트
+	    	e.printStackTrace();
+			return "이메일 전송 실패: " + e.getMessage();
 	    }
 	}
 

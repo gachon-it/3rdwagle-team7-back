@@ -19,4 +19,9 @@ public class Template {
 
     @Column(nullable = false, columnDefinition = "TEXT")
     private String content;  // 템플릿 내용 (String.format() 사용)
+
+	public static Template of(String name2, String content2) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
