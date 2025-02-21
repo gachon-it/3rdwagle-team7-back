@@ -1,12 +1,14 @@
 package com.hackathon.wagle.domain.template.controller;
 
 import com.hackathon.wagle.domain.template.dto.TemplateRequestDto;
+import com.hackathon.wagle.domain.template.entity.Template;
 import com.hackathon.wagle.domain.template.service.TemplateService;
 import com.hackathon.wagle.domain.user.entity.User;
 import com.hackathon.wagle.domain.user.service.UserService;
 import com.hackathon.wagle.global.common.response.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -52,8 +54,9 @@ public class TemplateController {
 
 
     @PostMapping
-    public ApiResponse<Void> createTemplate(TemplateRequestDto dto) {
-        templateService.createTemplate(dto);
-        return ApiResponse.response(HttpStatus.OK, "템플릿을 성공적으로 반환했습니다!");
+    public ResponseEntity<ApiResponse<Template>> createTemplate(@RequestBody TemplateRequestDto dto) {
+        Template template = templateService.createTemplate(dto);
+        return ResponseEntity.ok(ApiResponse.response(HttpStatus.OK, "템플릿을 성공적으로 반환했습니다!",template));
+
     }
 }
