@@ -26,9 +26,8 @@ public class Email {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	
-	
-	@Column(name="studentEmail")
-	private String studentEmail;
+	@Column(name="studentId")
+	private String studentId;
 	
 	@Column(name="studentName")
 	private String studentName;
@@ -36,11 +35,14 @@ public class Email {
 	@Column(name="studentPhoneNumber")
 	private String phoneNumber;
 	
+	@Column(name="studentEmail")
+	private String studentEmail;
 	
+	@Column(name="imagePath")
+	private String imagePath;
 	
-	
-	
-	
+	@Column(name="reason")
+	private String reason;
 	
 	
 }
