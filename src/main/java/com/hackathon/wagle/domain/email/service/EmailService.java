@@ -46,24 +46,24 @@ public class EmailService {
 	
 	
 	// 성적 이의 제기
-	public void sendEmailWithScoreObject(String name) throws MessagingException {
-		
-		MimeMessage message = mailSender.createMimeMessage();
-		MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
-		
-		Optional<Template> optionalTemplate = templateRepository.findByName(name);
-		Template template = optionalTemplate.orElse(null);
-		
-		helper.setTo("chris0540@naver.com");
-		
-		helper.setSubject(template.getName());
-		
-		helper.setText(template.getContent());
-		
-		mailSender.send(message);
-		
-	}
-	
+//	public void sendEmailWithScoreObject(String name) throws MessagingException {
+//		
+//		MimeMessage message = mailSender.createMimeMessage();
+//		MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+//		
+//		Optional<Template> optionalTemplate = templateRepository.findByName(name);
+//		Template template = optionalTemplate.orElse(null);
+//		
+//		helper.setTo("chris0540@naver.com");
+//		
+//		helper.setSubject(template.getName());
+//		
+//		helper.setText(template.getContent());
+//		
+//		mailSender.send(message);
+//		
+//	}
+//	
 	
 	
 }

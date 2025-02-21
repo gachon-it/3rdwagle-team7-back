@@ -1,15 +1,13 @@
 package com.hackathon.wagle.domain.template.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
-@Builder
 @Table(name = "templates")
-@AllArgsConstructor
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Template {
 
     @Id
@@ -22,10 +20,8 @@ public class Template {
     @Column(nullable = false, columnDefinition = "TEXT")
     private String content;  // 템플릿 내용 (String.format() 사용)
 
-    public static Template of(String name, String content) {
-        return Template.builder()
-                .name(name)
-                .content(content)
-                .build();
-    }
+	public static Template of(String name2, String content2) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
