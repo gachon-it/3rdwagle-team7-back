@@ -1,9 +1,6 @@
 package com.hackathon.wagle.domain.email;
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
@@ -12,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.hackathon.wagle.domain.user.entity.User;
 import com.hackathon.wagle.domain.user.service.UserService;
 
 import jakarta.mail.internet.MimeMessage;
@@ -51,14 +49,11 @@ public class EmailController {
 			User user = userService.findByStudentNumber(studentNumber);
 			
 			
-			String userName = "vlrhsgkek"; //user.getName();
-			String studentNumber = "12341234"; //user.getStudentNumber();
-			String major = "whfflqek"; //user.getStudentMajor();
+			String userName = user.getUsername(); 
+			String major = user.getMajor();
 			
-			String emailBody = "" + userName + "\n" 
-	                 + studentNumber + "\n" 
-	                 + major + "\n"
-	                 + "Spring Boot에서 보낸 이메일입니다.";
+			String emailBody = studentNumber + major + userName + "입니다 \n" 
+	                  + "첨부한 사진으로 프로필 사진 변경 부탁드립니다";
 
 			helper.setText(emailBody, true);
 			
