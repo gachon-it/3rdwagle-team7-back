@@ -6,6 +6,7 @@ import com.hackathon.wagle.domain.user.dto.response.LoginDto;
 import com.hackathon.wagle.domain.user.dto.response.UserResponseDto;
 import com.hackathon.wagle.domain.user.entity.User;
 import com.hackathon.wagle.domain.user.exception.DuplicatedStudentNumberException;
+import com.hackathon.wagle.domain.user.exception.PasswordNotMatchException;
 import com.hackathon.wagle.domain.user.exception.UserNotFoundException;
 import com.hackathon.wagle.domain.user.repository.UserRepository;
 import jakarta.transaction.Transactional;
@@ -30,6 +31,7 @@ public class UserService {
 
     public UserResponseDto login(UserLoginDto dto) {
         User user = findByStudentNumber(dto.studentNumber());
+        checkPassword(user, dto.password());
 
         return UserResponseDto.from(user);
     }
@@ -38,6 +40,12 @@ public class UserService {
     /*
     * refactor
     * */
+
+    public void checkPassword(User user, String password) {
+        if(!user.getPassword().equals(password)) {
+            throw new PasswordNotMatchException();
+        }
+    }
 
     public User findById(Long id) {
         return userRepository.findById(id)
