@@ -11,11 +11,6 @@ spring:
         dialect: org.hibernate.dialect.MySQLDialect
     hibernate:
       ddl-auto: update
-  wagle:
-    auth:
-      jwt:
-        key: ${JWT_SECRET_KEY}
-        accessTokenExpiration: ${JWT_ACCESS_TOKEN_EXPIRATION}
   mail:
     host: smtp.gmail.com        # 메일 서버 호스트
     port: 587                   # 메일 서버 포트 (TLS 사용 시)
@@ -30,3 +25,9 @@ spring:
             required: true
     protocol: smtp              # 메일 프로토콜
     default-encoding: UTF-8      # 인코딩 설정
+
+wagle:
+  auth:
+    jwt:
+      key: ${JWT_SECRET_KEY}
+      accessTokenExpiration: ${JWT_ACCESS_TOKEN_EXPIRATION}
