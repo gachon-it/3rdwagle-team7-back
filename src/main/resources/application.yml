@@ -11,3 +11,9 @@ spring:
         dialect: org.hibernate.dialect.MySQLDialect
     hibernate:
       ddl-auto: update
+
+wagle:
+  auth:
+    jwt:
+      key: ${JWT_SECRET_KEY}
+      accessTokenExpiration: ${JWT_ACCESS_TOKEN_EXPIRATION}
