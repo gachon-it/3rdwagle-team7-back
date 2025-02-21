@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/hackathon
-    username: root
-    password: 1204
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     show-sql: true
@@ -10,4 +10,25 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
+
+  mail:
+    host: smtp.gmail.com        # 메일 서버 호스트
+    port: 587                   # 메일 서버 포트 (TLS 사용 시)
+    username: dmsdmsqhghk919@gmail.com   # 발신자 이메일
+    password: keaw gveu bghq zhxh     # 앱 비밀번호
+    properties:
+      mail:
+        smtp:
+          auth: true            # 인증 사용
+          starttls:
+            enable: true        # TLS 사용
+            required: true
+    protocol: smtp              # 메일 프로토콜
+    default-encoding: UTF-8      # 인코딩 설정
+
+wagle:
+  auth:
+    jwt:
+      key: ${JWT_SECRET_KEY}
+      accessTokenExpiration: ${JWT_ACCESS_TOKEN_EXPIRATION}
