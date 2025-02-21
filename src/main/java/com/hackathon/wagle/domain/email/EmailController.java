@@ -35,20 +35,15 @@ public class EmailController {
 			MimeMessage message = mailSender.createMimeMessage();
 			MimeMessageHelper helper = new MimeMessageHelper(message,true, "UTF-8");
 			
-			
 			// 이메일 전송 주소
 			helper.setTo("photochange12@gmail.com");
 			
 			// 제목
 			helper.setSubject("증명사진 변경 관련 요청 드립니다.");
 			
-			// 내용
-			
-			
-			
 			User user = userService.findByStudentNumber(studentNumber);
 			
-			
+			// 내용
 			String userName = user.getUsername(); 
 			String major = user.getMajor();
 			
