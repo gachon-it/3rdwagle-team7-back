@@ -20,14 +20,6 @@ public class EmailService {
 	private JavaMailSender mailSender;
 	
 	
-//	@Autowired
-//	private StudentRepository studentRepository;
-//	
-//	@Autowired
-//	private TemplateRepository templateRepository;
-//	
-	
-	
 //	public EmailDetail returnChangePhotoTemplate(int studentId, String templateName, String imagePath) {
 //		
 //		Student student = studentRepository.findByStudentId(studentId);

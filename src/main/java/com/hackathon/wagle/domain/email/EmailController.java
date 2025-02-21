@@ -1,7 +1,6 @@
 package com.hackathon.wagle.domain.email;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
@@ -9,6 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.hackathon.wagle.domain.user.entity.User;
+import com.hackathon.wagle.domain.user.service.UserService;
 
 import jakarta.mail.internet.MimeMessage;
 
@@ -18,8 +20,8 @@ public class EmailController {
 	@Autowired
 	private JavaMailSender mailSender;
 	
-//	@Autowired
-//	private UserService userService;
+	@Autowired
+	private UserService userService;
 	
 	@GetMapping("/change-picture-form")
 	public String changePicture() {
@@ -27,7 +29,8 @@ public class EmailController {
 	}
 	
 	@PostMapping("/send")
-	public String sendTestEmail(@RequestParam("file") MultipartFile file) {
+	public String sendTestEmail(@RequestParam("studentNubmer") String studentNumber
+								, @RequestParam("file") MultipartFile file) {
 		try {
 			MimeMessage message = mailSender.createMimeMessage();
 			MimeMessageHelper helper = new MimeMessageHelper(message,true, "UTF-8");
@@ -41,15 +44,16 @@ public class EmailController {
 			
 			// 내용
 			
-//			User user = user.findUserInfo(userId);
-			String userName = "vlrhsgkek"; //user.getName();
-			String studentNumber = "12341234"; //user.getStudentNumber();
-			String major = "whfflqek"; //user.getStudentMajor();
 			
-			String emailBody = "" + userName + "\n" 
-	                 + studentNumber + "\n" 
-	                 + major + "\n"
-	                 + "Spring Boot에서 보낸 이메일입니다.";
+			
+			User user = userService.findByStudentNumber(studentNumber);
+			
+			
+			String userName = user.getUsername(); 
+			String major = user.getMajor();
+			
+			String emailBody = studentNumber + major + userName + "입니다 \n" 
+	                  + "첨부한 사진으로 프로필 사진 변경 부탁드립니다";
 
 			helper.setText(emailBody, true);
 			
@@ -59,6 +63,7 @@ public class EmailController {
 			}
 			
 			mailSender.send(message);
+			// 성공시 리디렉션 페이지
 			return "redirect:https://www.naver.com";
 		} catch (Exception e) {
 			e.printStackTrace();
