@@ -77,21 +77,18 @@ public class EmailController {
 	@PostMapping("/send-email")
 	public String sendEmail(@RequestParam("name") String name
 	                        , @RequestParam("professorName") String professorName
-	                        , @RequestParam("department") String department
-	                        , @RequestParam("studentNumber") String studentNumber
-	                        , @RequestParam("courseName") String courseName) {
+	                        , @RequestParam("courseName") String courseName
+	                        , @RequestParam("studentNumber") String studentNumber) {
 	    
 	    User user = userService.findByStudentNumber(studentNumber);
 	    String userName = user.getUsername();
-	    String major = user.getMajor();
-	    String studentEmail =  "chris0540@naver.com"; //user.getEmail();  
 	    
 	    
-	    String template = templateService.getFormattedTemplate(name, professorName, department, studentNumber, userName, courseName);
+	    String template = templateService.getFormattedTemplate(name, professorName, studentNumber, userName, courseName);
 
 	    // 이메일 제목 설정
-	    String subject = professorName + " 교수님에게 보내는 성적 이의 제기 요청";
-
+	    String subject = professorName + " 교수님에게 보내는 " + name + "관련 문의 드립니다";
+	    
 	    try {
 	    	
 	        MimeMessage message = mailSender.createMimeMessage();
@@ -99,7 +96,7 @@ public class EmailController {
 
 	        
 	        // 나중에 교수님 메일 주소로 교체하기
-	        helper.setTo(studentEmail);  
+	        helper.setTo("dmsdmsqhghk919@gmail.com");  
 
 	        helper.setSubject(subject);
 
