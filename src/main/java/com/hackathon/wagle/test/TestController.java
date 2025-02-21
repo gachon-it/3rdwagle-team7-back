@@ -1,11 +1,12 @@
 package com.hackathon.wagle.test;
 
-import com.hackathon.wagle.global.common.response.ApiResponse;
+import static org.springframework.http.HttpStatus.OK;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import static org.springframework.http.HttpStatus.OK;
+import com.hackathon.wagle.global.common.response.ApiResponse;
 
 
 @RestController
@@ -26,8 +27,8 @@ public class TestController {
     @GetMapping("/test2")
     public ApiResponse<Void> test2() {
 
-        throw new TestException();
-//        return ApiResponse.response(OK, "Test2 응답에 성공했습니다!");
+        //throw new TestException();
+    	return ApiResponse.response(OK, "Test2 응답에 성공했습니다!");
     }
 
     @GetMapping("/test3")
