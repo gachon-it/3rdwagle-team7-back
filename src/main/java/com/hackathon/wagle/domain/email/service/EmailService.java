@@ -18,36 +18,7 @@ public class EmailService {
 	
 	@Autowired
 	private JavaMailSender mailSender;
-	
-	
-//	@Autowired
-//	private StudentRepository studentRepository;
-//	
-//	@Autowired
-//	private TemplateRepository templateRepository;
-//	
-	
-	
-//	public EmailDetail returnChangePhotoTemplate(int studentId, String templateName, String imagePath) {
-//		
-//		Student student = studentRepository.findByStudentId(studentId);
-//		
-//		String templateBody = templateRepository.findbyTemplateName(templateName);
-//		
-//		EmailDetail emailDetail = EmailDetail.builder()
-//												.studentId(studentId)
-//												.studentName(student.Name)
-//												.phoneNumber(student.phoneNumber)
-//												.email(student.email)
-//												.head(templateName)
-//												.context(templateBody)
-//												.imagePath(imagePath)
-//											.build();
-//		
-//		return emailDetail;
-//		
-//	}
-	
+		
 	
 	public void sendEmailWithAttachmentToFixedRecipient(EmailDetail emailDetail, String fixedRecipient) throws MessagingException{
 		
