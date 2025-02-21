@@ -66,3 +66,17 @@ jobs:
       # 빌드한 이미지를 도커 허브 레포지토리에 Push
       - name: Push Docker image
         run: docker push ${{ secrets.DOCKER_USER_NAME }}/${{secrets.DOCKER_REPOSITORY}}
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build  # 작업 1. build가 종료되고 작업 2. deploy가 실행되도록 한다.
+    if: github.event_name == 'push'
+    steps:
+      - name: Deploy to EC2       # EC2 서버로 배포한다.
+        uses: appleboy/ssh-action@master # ssh 접속 uses 사용
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: 22
+          script: sudo /home/ec2-user/deploy.sh
