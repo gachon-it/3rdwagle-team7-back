@@ -3,6 +3,7 @@ package com.hackathon.wagle.domain.user.controller;
 import com.hackathon.wagle.domain.user.dto.request.UserRequestDto;
 import com.hackathon.wagle.domain.user.dto.request.UserLoginDto;
 import com.hackathon.wagle.domain.user.dto.response.LoginDto;
+import com.hackathon.wagle.domain.user.dto.response.UserResponseDto;
 import com.hackathon.wagle.domain.user.service.UserService;
 import com.hackathon.wagle.global.common.response.ApiResponse;
 import lombok.RequiredArgsConstructor;
@@ -29,10 +30,9 @@ public class UserController {
     }
 
     @PostMapping("/api/login")
-    public ApiResponse<LoginDto> login(@RequestBody UserLoginDto dto) {
+    public ApiResponse<UserResponseDto> login(@RequestBody UserLoginDto dto) {
 
-        LoginDto response = userService.login(dto);
-
+        UserResponseDto response = userService.login(dto);
 
         return ApiResponse.response(OK, USER_LOGIN.getMessage(), response);
     }
