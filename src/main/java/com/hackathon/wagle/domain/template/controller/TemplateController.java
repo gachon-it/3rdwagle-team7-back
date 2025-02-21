@@ -1,7 +1,7 @@
 package com.hackathon.wagle.domain.template.controller;
 
+import com.hackathon.wagle.domain.email.dto.EmailResponseDto;
 import com.hackathon.wagle.domain.template.dto.TemplateRequestDto;
-import com.hackathon.wagle.domain.template.entity.Template;
 import com.hackathon.wagle.domain.template.service.TemplateService;
 import com.hackathon.wagle.domain.user.entity.User;
 import com.hackathon.wagle.domain.user.service.UserService;
@@ -24,39 +24,43 @@ public class TemplateController {
     // 특정 템플릿 조회 및 값 치환
     @GetMapping("/{name}")
     public ApiResponse<String> getFormattedTemplate(
-            @PathVariable String name, // 카테고리 목록(성적이의제기, 강의증원신청 등)
+            @PathVariable String name, // 카테고리 목록(성적정정, 수강빌넣 등)
             @RequestParam String professorName,
             @RequestParam String courseName,
-            @RequestParam String studentNumber,
-            @RequestParam(required = false) String date // 출석 관련일 때만 필요
+            @RequestParam String studentNumber
              ) {
 
         User user = userService.findByStudentNumber(studentNumber);
 
-        String formattedTemplate;
-
-        if("결석관련".equals(name) || "과제지연".equals(name)) { //결석 관련일 때만 date 추가
-            if (date == null) {
-                return ApiResponse.response(HttpStatus.BAD_REQUEST, "출석 또는 과제 관련 템플릿에는 날짜가 필요합니다!", null);
-            }
-            formattedTemplate = templateService.getFormattedTemplate(
-                    name, professorName, user.getMajor(), user.getStudentNumber(),
-                    user.getUsername(), courseName, date);
-        }
-        else { //다른 템플릿일 경우 date 없이 처리
-            formattedTemplate = templateService.getFormattedTemplate(
-                    name, professorName, user.getMajor(), user.getStudentNumber(),
-                    user.getUsername(), courseName);
-        }
-
+        String formattedTemplate = templateService.getFormattedTemplate(
+                name, professorName, user.getMajor(), user.getStudentNumber(),
+                user.getUsername(), courseName);
         return ApiResponse.response(HttpStatus.OK, "템플릿을 성공적으로 반환했습니다!", formattedTemplate);
     }
 
-
     @PostMapping
-    public ResponseEntity<ApiResponse<Template>> createTemplate(@RequestBody TemplateRequestDto dto) {
-        Template template = templateService.createTemplate(dto);
-        return ResponseEntity.ok(ApiResponse.response(HttpStatus.OK, "템플릿을 성공적으로 반환했습니다!",template));
+    public ApiResponse<Void> createTemplate(TemplateRequestDto dto) {
+        templateService.createTemplate(dto);
+        return ApiResponse.response(HttpStatus.OK, "템플릿을 성공적으로 반환했습니다!");
+    }
 
+    @GetMapping("/student-photo")
+    public ApiResponse<EmailResponseDto> getStudentPhoto(
+            @RequestParam String studentNumber
+    ){
+        User user = userService.findByStudentNumber(studentNumber);
+
+        String title = "모바일학생증 사진 교체 부탁드립니다.";
+        String content = "안녕하세요." +
+                "\n" +
+                user.getStudentNumber() + " " + user.getMajor() + " " + user.getUsername() + "입니다." +
+                "\n" +
+                "학생증에 있는 사진이 너무 못생기게 나와서 교체 부탁드려요!" +
+                "\n" +
+                "감사합니다";
+
+        EmailResponseDto response = EmailResponseDto.of(title, content);
+
+        return ApiResponse.response(HttpStatus.OK, title, response);
     }
 }
