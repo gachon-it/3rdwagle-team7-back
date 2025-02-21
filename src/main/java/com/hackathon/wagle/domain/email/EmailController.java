@@ -4,12 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.hackathon.wagle.domain.template.entity.Template;
 import com.hackathon.wagle.domain.template.service.TemplateService;
 import com.hackathon.wagle.domain.user.entity.User;
 import com.hackathon.wagle.domain.user.service.UserService;
@@ -33,6 +33,7 @@ public class EmailController {
 		return "sendPicture.html";
 	}
 	
+	@CrossOrigin(origins = "http://localhost:3000")
 	@PostMapping("/send")
 	public String sendTestEmail(@RequestParam("studentNubmer") String studentNumber
 								, @RequestParam("file") MultipartFile file) {
