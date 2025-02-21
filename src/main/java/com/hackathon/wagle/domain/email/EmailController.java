@@ -1,6 +1,7 @@
 package com.hackathon.wagle.domain.email;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,9 @@ public class EmailController {
 	@Autowired
 	private JavaMailSender mailSender;
 	
+//	@Autowired
+//	private UserService userService;
+	
 	@GetMapping("/change-picture-form")
 	public String changePicture() {
 		return "sendPicture.html";
@@ -28,9 +32,26 @@ public class EmailController {
 			MimeMessage message = mailSender.createMimeMessage();
 			MimeMessageHelper helper = new MimeMessageHelper(message,true, "UTF-8");
 			
+			
+			// 이메일 전송 주소
 			helper.setTo("photochange12@gmail.com");
-			helper.setSubject("테스트 이메일");
-			helper.setText("Spring Boot에서 보낸 이메일입니다.", true);
+			
+			// 제목
+			helper.setSubject("증명사진 변경 관련 요청 드립니다.");
+			
+			// 내용
+			
+//			User user = user.findUserInfo(userId);
+			String userName = "vlrhsgkek"; //user.getName();
+			String studentNumber = "12341234"; //user.getStudentNumber();
+			String major = "whfflqek"; //user.getStudentMajor();
+			
+			String emailBody = "" + userName + "\n" 
+	                 + studentNumber + "\n" 
+	                 + major + "\n"
+	                 + "Spring Boot에서 보낸 이메일입니다.";
+
+			helper.setText(emailBody, true);
 			
 			// 파일 첨부 추가
 			if(file != null && !file.isEmpty()) {
