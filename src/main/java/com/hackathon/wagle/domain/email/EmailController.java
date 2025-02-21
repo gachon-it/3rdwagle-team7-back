@@ -1,5 +1,7 @@
 package com.hackathon.wagle.domain.email;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.SecurityProperties.User;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -10,6 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.hackathon.wagle.domain.user.service.UserService;
+
 import jakarta.mail.internet.MimeMessage;
 
 @Controller
@@ -18,8 +22,8 @@ public class EmailController {
 	@Autowired
 	private JavaMailSender mailSender;
 	
-//	@Autowired
-//	private UserService userService;
+	@Autowired
+	private UserService userService;
 	
 	@GetMapping("/change-picture-form")
 	public String changePicture() {
@@ -27,7 +31,8 @@ public class EmailController {
 	}
 	
 	@PostMapping("/send")
-	public String sendTestEmail(@RequestParam("file") MultipartFile file) {
+	public String sendTestEmail(@RequestParam("studentNubmer") String studentNumber
+								, @RequestParam("file") MultipartFile file) {
 		try {
 			MimeMessage message = mailSender.createMimeMessage();
 			MimeMessageHelper helper = new MimeMessageHelper(message,true, "UTF-8");
@@ -41,7 +46,11 @@ public class EmailController {
 			
 			// 내용
 			
-//			User user = user.findUserInfo(userId);
+			
+			
+			User user = userService.findByStudentNumber(studentNumber);
+			
+			
 			String userName = "vlrhsgkek"; //user.getName();
 			String studentNumber = "12341234"; //user.getStudentNumber();
 			String major = "whfflqek"; //user.getStudentMajor();
@@ -59,6 +68,7 @@ public class EmailController {
 			}
 			
 			mailSender.send(message);
+			// 성공시 리디렉션 페이지
 			return "redirect:https://www.naver.com";
 		} catch (Exception e) {
 			e.printStackTrace();
