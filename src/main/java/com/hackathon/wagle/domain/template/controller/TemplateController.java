@@ -2,6 +2,7 @@ package com.hackathon.wagle.domain.template.controller;
 
 import com.hackathon.wagle.domain.email.dto.EmailResponseDto;
 import com.hackathon.wagle.domain.template.dto.TemplateRequestDto;
+import com.hackathon.wagle.domain.template.entity.Template;
 import com.hackathon.wagle.domain.template.service.TemplateService;
 import com.hackathon.wagle.domain.user.entity.User;
 import com.hackathon.wagle.domain.user.service.UserService;
@@ -39,9 +40,10 @@ public class TemplateController {
     }
 
     @PostMapping
-    public ApiResponse<Void> createTemplate(TemplateRequestDto dto) {
-        templateService.createTemplate(dto);
-        return ApiResponse.response(HttpStatus.OK, "템플릿을 성공적으로 반환했습니다!");
+    public ApiResponse<Template> createTemplate(
+            @RequestBody TemplateRequestDto dto) {
+        Template template = templateService.createTemplate(dto);
+        return ApiResponse.response(HttpStatus.OK, "템플릿을 성공적으로 반환했습니다!", template);
     }
 
     @GetMapping("/student-photo")

@@ -21,6 +21,8 @@ public class TemplateService {
 
     @Transactional
     public Template createTemplate(TemplateRequestDto requestDto) {
+        System.out.println(requestDto.name());
+        System.out.println(requestDto.content());
         Template template = Template.of(requestDto.name(), requestDto.content());
         return templateRepository.save(template);
     }
