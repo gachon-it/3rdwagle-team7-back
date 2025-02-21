@@ -35,7 +35,7 @@ public class EmailController {
 	
 	@CrossOrigin(origins = "http://localhost:3000")
 	@PostMapping("/send")
-	public String sendTestEmail(@RequestParam("studentNubmer") String studentNumber
+	public String sendTestEmail(@RequestParam("studentNumber") String studentNumber
 								, @RequestParam("file") MultipartFile file) {
 		try {
 			MimeMessage message = mailSender.createMimeMessage();
